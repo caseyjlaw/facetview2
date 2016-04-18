@@ -272,7 +272,7 @@ function getFilters(params) {
 function elasticSearchQuery(params) {
     // break open the parameters
     var options = params.options;
-    var include_facets = "include_facets" in params ? params.include_facets : true;
+    var include_facets = "include_facets" in params ? params.include_facets : false;
     var include_fields = "include_fields" in params ? params.include_fields : true;
 
     var filter_must = getFilters({"options" : options});
@@ -506,10 +506,10 @@ function doElasticSearchQuery(params) {
     var search_url = params.search_url;
     var queryobj = params.queryobj;
     var datatype = params.datatype;
-    
+
     // serialise the query
     var querystring = serialiseQueryObject(queryobj);
-    
+
     // make the call to the elasticsearch web service
     $.ajax({
         type: "get",
@@ -517,7 +517,12 @@ function doElasticSearchQuery(params) {
         data: {source: querystring},
         dataType: datatype,
         success: elasticSearchSuccess(success_callback),
-        complete: complete_callback
+        complete: complete_callback,
+        // contentType: "application/json",
+        error: function(a,s,e){
+            console.log(s+": "+e);
+        },
+
     });
 }
 
