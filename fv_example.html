@@ -13,6 +13,7 @@
   <script type="text/javascript" src="vendor/jquery-ui-1.8.18.custom/jquery-ui-1.8.18.custom.min.js"></script>
 
   <!-- note that we require the es.js integration, the bootstrap2 facetview and the facetview core -->
+  <script type="text/javascript" src="bower_components/elasticsearch/elasticsearch.jquery.js"></script>
   <script type="text/javascript" src="es.js"></script>
   <script type="text/javascript" src="bootstrap2.facetview.theme.js"></script>
   <script type="text/javascript" src="jquery.facetview2.js"></script>
@@ -26,29 +27,30 @@ jQuery(document).ready(function($) {
             search_url : "http://localhost:9200/cand/_search",
             datatype : "json",
             default_freetext_fuzzify: "*",
-            page_size: 15,
-            sort: [{"integration" : {"order" : "asc"}}],
+            page_size: 5,
+            sort: [{"integration" : {"order" : "desc"}}],
             searchfield: "snr",
             // q : "Money",
-            // facets: [
-            //     {'field': 'price', 'display': 'Price', "type" : "range", "range" : [{"to" : 10, "display" : "less than £10"}, {"from" : 10, "to" : 20, "display" : "£10 - £20"}, {"from" : 20, "to" : 40, "display" : "£20 - £40"}, {"from" : 40, "display" : "£40+"}], "open" : true},
-            //     {'field' : 'loc', 'display' : 'Distance from me', 'type' : 'geo_distance', 
-            //         'unit' : 'mi', 'open' : true, "lat" : 51.533182, "lon" : -0.475996, 
-            //         "distance" : [
-            //         {"to" : 0.5, "display" : "within 0.5 miles"}, {"to" : 2, "display" : "within 2 miles"}, {"to" : 5, "display" : "within 5 miles"},
-            //         {"to" : 10, "display" : "within 10 miles"}, {"to" : 20, "display" : "within 20 miles"}, {"to" : 50, "display" : "within 50 miles"}
-            //         ]
-            //     },
-            //     {'field': 'subject.exact', 'display': 'Subject', "logic" : "OR", "open" : true, "value_function" :  function(value) {return value.toUpperCase() } },
-            //     {'field': 'condition.exact', 'display': 'Condition', "logic" : "AND"},
-            //     {'field': 'year', 'display': 'Publication Year', "size" : 26},
-            //     {'field': 'edition.exact', 'display': 'Edition', "order" : "reverse_count", "open" : true},
-            //     {'field' : 'inactive', 'display' : 'Inactive Visible', 'deactivate_threshold' : 2},
-            //     {'field' : 'invisible', 'display' : 'Inactive Inisible', 'deactivate_threshold' : 2, 'hide_inactive' : true},
-            // ],
-            // default_facet_size: 11,
+            facets: [
+                // {'field': 'snr', 'display': 'SNR', "type" : "range", "range" : [{"to" : 10, "display" : "less than £10"}, {"from" : 10, "to" : 20, "display" : "£10 - £20"}, {"from" : 20, "to" : 40, "display" : "£20 - £40"}, {"from" : 40, "display" : "£40+"}], "open" : true},
+                // {'field' : 'loc', 'display' : 'Distance from me', 'type' : 'geo_distance', 
+                //     'unit' : 'mi', 'open' : true, "lat" : 51.533182, "lon" : -0.475996, 
+                //     "distance" : [
+                //     {"to" : 0.5, "display" : "within 0.5 miles"}, {"to" : 2, "display" : "within 2 miles"}, {"to" : 5, "display" : "within 5 miles"},
+                //     {"to" : 10, "display" : "within 10 miles"}, {"to" : 20, "display" : "within 20 miles"}, {"to" : 50, "display" : "within 50 miles"}
+                //     ]
+                // },
+                // {'field': 'subject.exact', 'display': 'Subject', "logic" : "OR", "open" : true, "value_function" :  function(value) {return value.toUpperCase() } },
+                // {'field': 'condition.exact', 'display': 'Condition', "logic" : "AND"},
+                // {'field': 'dm', 'display': 'Publication Year', "size" : 26},
+                // {'field': 'edition.exact', 'display': 'Edition', "order" : "reverse_count", "open" : true},
+                // {'field' : 'dt', 'display' : 'Inactive Visible', 'deactivate_threshold' : 2},
+                // {'field' : 'invisible', 'display' : 'Inactive Inisible', 'deactivate_threshold' : 2, 'hide_inactive' : true},
+            ],
+            default_facet_size: 11,
             default_facet_operator: "AND",
             default_facet_order: "term",
+            include_facets_in_url:false,
             from: 0,
             // search_sortby: [
             //     {'display':'Date added','field':'created_date'},
@@ -66,30 +68,30 @@ jQuery(document).ready(function($) {
             sharesave_link: true,
             search_button: true,
             debug: true,
-            // fields: ["id", "title", "authors"],
+            // fields: ["snr", "scan", "candidate_png", "dm", "dt","integration"],
             render_results_metadata: pageSlider,
             "result_display" : 
               [
-                [ { "pre":"<img width='200' src='http://www.aoc.nrao.edu/~claw/realfast/plots/cands_15B-305_tenminTEST_002.57366.88933222222_sc9-seg4-i804-dm76-dt1.png'>","field": "candidate_png"} ],
+                [ { "pre":"<td><img width='200' src='http://www.aoc.nrao.edu/~claw/realfast/plots/cands_16A-456_Stest_14Apr2016.57496.71619041667_sc10-seg0-i462-dm6-dt0.png'>&nbsp; &nbsp; OBS: <strong>"
+                    , "field": "obs", "post": "</strong></td>"},
+                { "pre": "<td><ul><li>Scan: <em>", "field": "scan", "post": "</em></li> "},
+                { "pre": "<li>Segment: <em>", "field": "segment", "post": "</em></li> " },
+                { "pre": "<li>i. ", "field": "integration", "post": "</li>" },
+                { "pre": "<li>dm: ", "field": "dm", "post": "</li>" },
+                { "pre": "<li>dt: ", "field": "dt", "post": "</li></ul></td>"  },
+                { "pre": "<td>SNR: ", "field": "snr", "post":"</td>"}
+                 ],
                   // {"pre" : "<img src='http://www.aoc.nrao.edu/~claw/realfast/plots/",
                         // "field": "candidate_png", "post" : "'/>')"} ],
-                [ {"pre": "OBS: <strong>", "field": "obs", "post": "</strong>"} ],
-                [ 
-                    { "pre": "Scan: <em>", "field": "scan", "post": "</em>, "},
-                    { "pre": "Segment: <em>", "field": "segment", "post": "</em>, " },
-                    { "pre": "i. ", "field": "integration", "post": ", " },
-                    { "pre": "dm: ", "field": "dm" },
-                    { "pre": "dt: ", "field": "dt" }
-                ],
               ],
-            selected_filters_in_facet: true,
+            // selected_filters_in_facet: true,
             show_filter_field : true,
             show_filter_logic: true,
             //predefined_filters : {
             //    "subject.exact" : ["Medicine"]
             //},
-            exclude_predefined_filters_from_facets : false,
             "pushstate" : false,
+            exclude_predefined_filters_from_facets : false
         });
     });
 });
