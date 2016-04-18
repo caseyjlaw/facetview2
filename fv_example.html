@@ -13,7 +13,6 @@
   <script type="text/javascript" src="vendor/jquery-ui-1.8.18.custom/jquery-ui-1.8.18.custom.min.js"></script>
 
   <!-- note that we require the es.js integration, the bootstrap2 facetview and the facetview core -->
-  <script type="text/javascript" src="bower_components/elasticsearch/elasticsearch.jquery.js"></script>
   <script type="text/javascript" src="es.js"></script>
   <script type="text/javascript" src="bootstrap2.facetview.theme.js"></script>
   <script type="text/javascript" src="jquery.facetview2.js"></script>
@@ -27,13 +26,10 @@ jQuery(document).ready(function($) {
             search_url : "http://localhost:9200/cand/_search",
             datatype : "json",
             default_freetext_fuzzify: "*",
-            page_size: 5,
-            sort: [{"integration" : {"order" : "desc"}}],
-            searchfield: "snr",
-            // q : "Money",
+            sort: [{"snr" : {"order" : "desc"}}],
             facets: [
                 // {'field': 'snr', 'display': 'SNR', "type" : "range", "range" : [{"to" : 10, "display" : "less than £10"}, {"from" : 10, "to" : 20, "display" : "£10 - £20"}, {"from" : 20, "to" : 40, "display" : "£20 - £40"}, {"from" : 40, "display" : "£40+"}], "open" : true},
-                // {'field' : 'loc', 'display' : 'Distance from me', 'type' : 'geo_distance', 
+                // {'field' : 'integration', 'display' : 'integration', 'type' : 'geo_distance', 
                 //     'unit' : 'mi', 'open' : true, "lat" : 51.533182, "lon" : -0.475996, 
                 //     "distance" : [
                 //     {"to" : 0.5, "display" : "within 0.5 miles"}, {"to" : 2, "display" : "within 2 miles"}, {"to" : 5, "display" : "within 5 miles"},
@@ -45,41 +41,44 @@ jQuery(document).ready(function($) {
                 // {'field': 'dm', 'display': 'Publication Year', "size" : 26},
                 // {'field': 'edition.exact', 'display': 'Edition', "order" : "reverse_count", "open" : true},
                 // {'field' : 'dt', 'display' : 'Inactive Visible', 'deactivate_threshold' : 2},
-                // {'field' : 'invisible', 'display' : 'Inactive Inisible', 'deactivate_threshold' : 2, 'hide_inactive' : true},
+                // {'field' : 'segment', 'display' : 'segment'},
             ],
             default_facet_size: 11,
-            default_facet_operator: "AND",
-            default_facet_order: "term",
+            // default_facet_operator: "AND",
+            // default_facet_order: "term",
             include_facets_in_url:false,
+            include_facets:true,
+            // default_operator: "AND", 
             from: 0,
-            // search_sortby: [
-            //     {'display':'Date added','field':'created_date'},
-            //     {'display':'Title','field':'title.exact'},
-            //     {'display':'Publication Year','field':'year'},
-            //     {'display':'Edition','field':'edition.exact'},
-            //     {'display':'Price','field':'price'}
-            // ],
-            // searchbox_fieldselect: [
-            //     {'display':'Title','field':'title'},
-            //     {'display':'ISBN','field':'isbn'},
-            //     {'display':'Authors','field':'authors'},
-            //     {'display':'Publisher','field':'publisher'}
-            // ],
+            search_sortby: [
+                {'display':'snr',         'field':'snr'},
+                {'display':'integration', 'field':'integration'},
+                {'display':'segment',     'field':'segment'},
+                {'display':'dm',          'field':'dm'},
+                {'display':'dt',          'field':'dt'}
+            ],
+            searchbox_fieldselect: [
+                {'display':'snr',         'field':'snr'},
+                {'display':'integration', 'field':'integration'},
+                {'display':'segment',     'field':'segment'},
+                {'display':'dm',          'field':'dm'},
+                {'display':'dt',          'field':'dt'}
+            ],
             sharesave_link: true,
             search_button: true,
             debug: true,
-            // fields: ["snr", "scan", "candidate_png", "dm", "dt","integration"],
+            fields: ["obs", "snr", "scan", "candidate_png", "dm", "dt","integration", "segment"],
             render_results_metadata: pageSlider,
             "result_display" : 
               [
                 [ { "pre":"<td><img width='200' src='http://www.aoc.nrao.edu/~claw/realfast/plots/cands_16A-456_Stest_14Apr2016.57496.71619041667_sc10-seg0-i462-dm6-dt0.png'>&nbsp; &nbsp; OBS: <strong>"
                     , "field": "obs", "post": "</strong></td>"},
-                { "pre": "<td><ul><li>Scan: <em>", "field": "scan", "post": "</em></li> "},
-                { "pre": "<li>Segment: <em>", "field": "segment", "post": "</em></li> " },
-                { "pre": "<li>i. ", "field": "integration", "post": "</li>" },
+                { "pre": "<td><ul><li>scan: <em>", "field": "scan", "post": "</em></li> "},
+                { "pre": "<li>segment: <em>", "field": "segment", "post": "</em></li> " },
+                { "pre": "<li>integration ", "field": "integration", "post": "</li>" },
                 { "pre": "<li>dm: ", "field": "dm", "post": "</li>" },
                 { "pre": "<li>dt: ", "field": "dt", "post": "</li></ul></td>"  },
-                { "pre": "<td>SNR: ", "field": "snr", "post":"</td>"}
+                { "pre": "<td><b>snr: ", "field": "snr", "post":"</b></td>"}
                  ],
                   // {"pre" : "<img src='http://www.aoc.nrao.edu/~claw/realfast/plots/",
                         // "field": "candidate_png", "post" : "'/>')"} ],
