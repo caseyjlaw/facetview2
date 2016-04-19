@@ -71,14 +71,17 @@ jQuery(document).ready(function($) {
             render_results_metadata: pageSlider,
             "result_display" : 
               [
-                [ { "pre":"<td><img width='200' src='http://www.aoc.nrao.edu/~claw/realfast/plots/cands_16A-456_Stest_14Apr2016.57496.71619041667_sc10-seg0-i462-dm6-dt0.png'>&nbsp; &nbsp; OBS: <strong>"
-                    , "field": "obs", "post": "</strong></td>"},
-                { "pre": "<td><ul><li>scan: <em>", "field": "scan", "post": "</em></li> "},
+                [ 
+                   // { "pre":"<td><img width='600' src='http://www.aoc.nrao.edu/~claw/realfast/plots/cands_16A-456_Stest_14Apr2016.57496.71619041667_sc10-seg0-i462-dm6-dt0.png'><p> OBS: <strong>"
+                   // , "field": "obs", "post": "</strong></td>"},
+                { "pre":"<td><img width='600' src='http://www.aoc.nrao.edu/~claw/plots/", "field": "candidate_png", "post": "'/>"},
+                { "pre": "<td><ul><li>obs: <em>", "field": "obs", "post": "</em></li> "},
+                { "pre": "<li>scan: <em>", "field": "scan", "post": "</em></li> "},
                 { "pre": "<li>segment: <em>", "field": "segment", "post": "</em></li> " },
                 { "pre": "<li>integration ", "field": "integration", "post": "</li>" },
                 { "pre": "<li>dm: ", "field": "dm", "post": "</li>" },
-                { "pre": "<li>dt: ", "field": "dt", "post": "</li></ul></td>"  },
-                { "pre": "<td><b>snr: ", "field": "snr", "post":"</b></td>"}
+                { "pre": "<li>dt: ", "field": "dt", "post": "</li></ul>"  },
+                { "pre": "<b>snr: ", "field": "snr", "post":"</b></td>"}
                  ],
                   // {"pre" : "<img src='http://www.aoc.nrao.edu/~claw/realfast/plots/",
                         // "field": "candidate_png", "post" : "'/>')"} ],
