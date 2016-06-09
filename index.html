@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>FacetView</title>
+
+  <script type="text/javascript" src="vendor/jquery/1.7.1/jquery-1.7.1.min.js"></script>
+
+  <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+  <script type="text/javascript" src="vendor/bootstrap/js/bootstrap.min.js"></script>  
+
+  <link rel="stylesheet" href="vendor/jquery-ui-1.8.18.custom/jquery-ui-1.8.18.custom.css">
+  <script type="text/javascript" src="vendor/jquery-ui-1.8.18.custom/jquery-ui-1.8.18.custom.min.js"></script>
+
+  <!-- note that we require the es.js integration, the bootstrap2 facetview and the facetview core -->
+  <script type="text/javascript" src="es.js"></script>
+  <script type="text/javascript" src="bootstrap2.facetview.theme.js"></script>
+  <script type="text/javascript" src="jquery.facetview2.js"></script>
+
+  <link rel="stylesheet" href="css/facetview.css">
+
+  <script type="text/javascript">
+jQuery(document).ready(function($) {
+    $('.facet-view-simple').each(function() {
+        $(this).facetview({
+            search_url : "http://136.152.227.149:9200/realfast/_search",
+            datatype : "json",
+            default_freetext_fuzzify: "*",
+            sort: [{"snr1" : {"order" : "desc"}}],
+            facets: [ ],
+            default_facet_size: 11,
+            include_facets_in_url:false,
+            include_facets:true,
+            from: 0,
+            search_sortby: [
+                {'display':'snr1',         'field':'snr1'},
+                {'display':'rbscore',         'field':'rbscore'},
+                {'display':'obs',         'field':'obs'},
+                {'display':'dmind',          'field':'dmind'},
+                {'display':'dtind',          'field':'dtind'}
+            ],
+            searchbox_fieldselect: [
+                {'display':'snr1',         'field':'snr1'},
+                {'display':'rbscore',         'field':'rbscore'},
+                {'display':'obs',         'field':'obs'},
+                {'display':'dmind',          'field':'dmind'},
+                {'display':'dtind',          'field':'dtind'}
+            ],
+            search_button: true,
+            sharesave_link: true,
+            debug: true,
+            fields: ["obs", "snr1", "scan", "candidate_png", "dmind", "dtind","int", "segment", "rbscore"],
+            render_results_metadata: pageSlider,
+            "result_display" : 
+              [
+                [ 
+                  { "pre":"<td><img width='700' src='http://www.aoc.nrao.edu/~claw/plots/", "field": "candidate_png", "post": "'/>"},
+                  { "pre": "<td><ul><li>obs: <em>", "field": "obs", "post": "</em></li> "},
+                  { "pre": "<li>scan: <em>", "field": "scan", "post": "</em></li> "},
+                  { "pre": "<li>segment: <em>", "field": "segment", "post": "</em></li> " },
+                  { "pre": "<li>int ", "field": "int", "post": "</li>" },
+                  { "pre": "<li>dmind: ", "field": "dmind", "post": "</li>" },
+                  { "pre": "<li>dtind: ", "field": "dtind", "post": "</li>"  },
+                  { "pre": "<li>rbscore: ", "field": "rbscore", "post": "</li></ul>"},
+                  { "pre": "<b>snr1: ", "field": "snr1", "post":"</b></td>"}
+                ],
+              ],
+            // selected_filters_in_facet: true,
+            show_filter_field : true,
+            show_filter_logic: true,
+            "pushstate" : false,
+            exclude_predefined_filters_from_facets : false
+        });
+    });
+});
+  </script>
+
+<style type="text/css">
+.facet-view-simple{
+    width:1170px;
+    height:600px;
+    margin:20px auto 0 auto;
+}
+</style>
+
+</head>
+<body>
+
+    <div class="facet-view-simple"></div>
+
+</body>
+</html>
