@@ -23,7 +23,7 @@
 jQuery(document).ready(function($) {
     $('.facet-view-simple').each(function() {
         $(this).facetview({
-            search_url : "http://136.152.227.149:9200/realfast/_search",
+            search_url : "http://realfast.berkeley.edu:9200/realfast/_search",
             datatype : "json",
             default_freetext_fuzzify: "*",
             sort: [{"snr1" : {"order" : "desc"}}],
