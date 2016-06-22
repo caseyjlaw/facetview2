@@ -34,6 +34,7 @@ jQuery(document).ready(function($) {
             from: 0,
             search_sortby: [
                 {'display':'snr1',         'field':'snr1'},
+                {'display':'tag',          'field':'tag'},
                 {'display':'rbscore',         'field':'rbscore'},
                 {'display':'obs',         'field':'obs'},
                 {'display':'dmind',          'field':'dmind'},
@@ -41,6 +42,7 @@ jQuery(document).ready(function($) {
             ],
             searchbox_fieldselect: [
                 {'display':'snr1',         'field':'snr1'},
+                {'display':'tag',          'field':'tag'},
                 {'display':'rbscore',         'field':'rbscore'},
                 {'display':'obs',         'field':'obs'},
                 {'display':'dmind',          'field':'dmind'},
@@ -49,7 +51,7 @@ jQuery(document).ready(function($) {
             search_button: true,
             sharesave_link: true,
             debug: true,
-            fields: ["obs", "snr1", "scan", "candidate_png", "dmind", "dtind","int", "segment", "rbscore"],
+            fields: ["obs", "snr1", "scan", "candidate_png", "dmind", "dtind","int", "segment", "rbscore", "tag"],
             render_results_metadata: pageSlider,
             "result_display" : 
               [
@@ -61,8 +63,9 @@ jQuery(document).ready(function($) {
                   { "pre": "<li>int ", "field": "int", "post": "</li>" },
                   { "pre": "<li>dmind: ", "field": "dmind", "post": "</li>" },
                   { "pre": "<li>dtind: ", "field": "dtind", "post": "</li>"  },
-                  { "pre": "<li>rbscore: ", "field": "rbscore", "post": "</li></ul>"},
-                  { "pre": "<b>snr1: ", "field": "snr1", "post":"</b></td>"}
+                  { "pre": "<li>rbscore: ", "field": "rbscore", "post": "</li>"},
+                  { "pre": "<li><b>snr1: ", "field": "snr1", "post":"</b></li>"},
+                  { "pre": "<li><b>tag: ", "field": "tag", "post":"</b></li></ul></td>"}
                 ],
               ],
             // selected_filters_in_facet: true,
