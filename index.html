@@ -48,24 +48,24 @@ jQuery(document).ready(function($) {
                 {'display':'dmind',          'field':'dmind'},
                 {'display':'dtind',          'field':'dtind'}
             ],
-            search_button: true,
+            search_button: false,
             sharesave_link: true,
-            debug: true,
+            debug: false,
             fields: ["obs", "snr1", "scan", "candidate_png", "dmind", "dtind","int", "segment", "rbscore", "tag"],
             render_results_metadata: pageSlider,
             "result_display" : 
               [
                 [ 
-                  { "pre":"<td><img width='700' src='http://www.aoc.nrao.edu/~claw/plots/", "field": "candidate_png", "post": "'/>"},
-                  { "pre": "<td><ul><li>obs: <em>", "field": "obs", "post": "</em></li> "},
-                  { "pre": "<li>scan: <em>", "field": "scan", "post": "</em></li> "},
-                  { "pre": "<li>segment: <em>", "field": "segment", "post": "</em></li> " },
-                  { "pre": "<li>int ", "field": "int", "post": "</li>" },
-                  { "pre": "<li>dmind: ", "field": "dmind", "post": "</li>" },
-                  { "pre": "<li>dtind: ", "field": "dtind", "post": "</li>"  },
-                  { "pre": "<li>rbscore: ", "field": "rbscore", "post": "</li>"},
-                  { "pre": "<li><b>snr1: ", "field": "snr1", "post":"</b></li>"},
-                  { "pre": "<li><b>tag: ", "field": "tag", "post":"</b></li></ul></td>"}
+                  { "pre": "<ul><li>observation: <b>", "field": "obs", "post": "</li> "},
+                  { "pre": "<li>(scan, seg, int, dmind, dtind): <b>", "field": "scan", "post": "," },
+                  { "pre": " ", "field": "segment", "post": "," },
+                  { "pre": " ", "field": "int", "post": "," },
+                  { "pre": " ", "field": "dmind", "post": "," },
+                  { "pre": " ", "field": "dtind", "post": "</b></li>" },
+                  { "pre": "<li>snr1: <b>", "field": "snr1", "post":"</b></li>"},
+                  { "pre": "<li>rbscore: <b>", "field": "rbscore", "post": "</b></li>"},
+                  { "pre": "<li>tag: <b>", "field": "tag", "post":"</b></li></ul>"},
+                  { "pre":"<img width='100%' src='http://www.aoc.nrao.edu/~claw/plots/", "field": "candidate_png", "post": "'/>"}
                 ],
               ],
             // selected_filters_in_facet: true,
